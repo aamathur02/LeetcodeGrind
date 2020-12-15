@@ -43,3 +43,62 @@ For Python:
 2. for loop from 0 to k
 3. add last element to front of element using insert()
 4. remove last element from list using pop(-1)
+
+
+## Contains Duplicate
+
+### Java O(n) time and O(n) space
+1. Use a hashset of same length as array and iterate through the array using for loop       
+2. If the set contains the number, return true
+3. else add the number to set
+3. return false outside for loop
+
+
+### Python O(n) time and O(n) space
+1. Create a set from the array
+2. Compare the length of the set and the length of the array
+3. if the length of the set of lower, retun true
+    * works on principle that sets have no duplicates so if there are duplicates, then the length of the set must be lower than the List
+
+
+## Single Number
+
+### Java and Python O(n) time and O(1) space
+1. does some bit manipulation black magic
+
+1. Otherwise can use a hashmap and return value w key 1 at the end
+
+## Intersection of two array II
+
+### Java
+1. Create hashmap and iterate through array1 and update the values and keys to match array1 occurences
+    * can use map.getOrDefault to avoid if statements
+2. Create empty arraylist
+3. Iterate through array2 and see if hashmap has number:
+    * if hashmap has number, add number to arraylist and decrement count of number in hashmap
+4. Convert arraylist to array and return
+
+### Python
+1. Create Counter objects for both lists
+    * this keep track of count of each int, basically like a hashmap
+2. iterate through counter1 and see if counter2 also has the same number
+    * if so, create a cout variable and set it to the min of the occurence of the num in counter 1 and 2
+3. add the number to an empty list "count" times
+4. return this list
+
+## Plus One
+
+### Java
+1. Iterate from the end to the front of the array
+    * if the element at the current index is less than 9, increment it by 1 and then return the array
+    * else, set the element to 0 and then move on the next index
+2. If the method doesnt return before the while loop ends, that means the array had all 9's in it
+    * make a new array with length + 1 of the input array
+    * set the first element to 1 and the rest are automatically zero
+3. return this newly formed array
+
+### Python
+1. Same thing but can do reversed(range(....)) to go from front to back
+2. For edge case, can just do some list add and multiply as opposed to creating a new list
+    
+

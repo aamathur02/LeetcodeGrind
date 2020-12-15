@@ -1,5 +1,11 @@
 package Easy.Arrays;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class Solution {
 
@@ -51,6 +57,74 @@ public class Solution {
             }
 
         }
+
+    public boolean containsDuplicate(int[] nums) {
+        Set<Integer> set = new HashSet<>(nums.length);
+
+        for (int num: nums) {
+            if (set.contains(num)) {
+                return true;
+            }
+
+            set.add(num);
+        }
+
+        return false;
+    }
+
+    public int singleNumber(int[] nums) {
+        int a = 0;
+        for (int num: nums) {
+            a ^= num;
+        }
+
+        return a;
+    }
+
+    public int[] intersectionOfTwoArrays(int[] nums1, int[] nums2) {
+        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+
+        for (int num: nums1) {
+            int count = map.getOrDefault(num, 0);
+            count++;
+            map.put(num, count);
+        }
+
+        List<Integer> list = new ArrayList<Integer>();
+        for (int num: nums2) {
+            int count = map.getOrDefault(num, 0);
+            if (count >  0) {
+                count--;
+                map.put(num, count);
+                list.add(num);
+            }
+        }
+
+        int[] returnArray = new int[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            returnArray[i] = list.get(i);
+        }
+
+        return returnArray;
+
+    }
+
+    public int[] plusOne(int[] nums) {
+        for (int i = nums.length -1; i >= 0; i--) {
+            if (nums[i] < 9) {
+                nums[i]++;
+                return nums;
+            }
+
+            nums[i] = 0;
+        }
+
+        int[] returnArray = new int[nums.length + 1];
+        returnArray[0] = 1;
+        return returnArray;
+    }
+
+
 
 
     
