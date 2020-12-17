@@ -100,5 +100,20 @@ For Python:
 ### Python
 1. Same thing but can do reversed(range(....)) to go from front to back
 2. For edge case, can just do some list add and multiply as opposed to creating a new list
+
+## Two Sum
+
+### Java O(n) time and space
+1. Create a hashmap of <Integer, Integer>
+    * the basic schema is that the key will be the value of the elements in the input array and the value will be the index of that element     
+2. Iterate through the array with a for loo
+3. If the map contains the complement, return an array with the value of the hashmap entry with the complement and the current index
+4. Outside the if, but inside the for loop, add the element to the hashmap as the key and the index as the value
+
+### Python
+1. iterate from beginning to end of list
+2. calculate complement for given element
+3. Check if conmplement is in the array and that the compliment is not just the same element
+4. then return a list with the current index and index of compliment
     
 

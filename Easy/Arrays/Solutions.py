@@ -1,9 +1,6 @@
 """
 Remove Duplicates
 """
-
-
-
 from typing import Counter, List
 
 
@@ -59,3 +56,11 @@ def plus_one(nums:List[int]) -> List[int]:
             nums[i] = 0
 
     return [1] + [0] * len(nums)
+
+def two_sum(nums: List[int], target: int) -> List[int]:
+    for i in range(0, len(nums)):
+            complement = target - nums[i]
+            print(complement)
+            if complement in nums and nums.index(complement) != i:
+                print('inside if')
+                return [nums.index(complement), i]
