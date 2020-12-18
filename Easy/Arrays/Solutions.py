@@ -64,3 +64,26 @@ def two_sum(nums: List[int], target: int) -> List[int]:
             if complement in nums and nums.index(complement) != i:
                 print('inside if')
                 return [nums.index(complement), i]
+
+def valid_sudoku(board: List[List[str]]) -> bool:
+    rows = [{} for i in range (9)]
+    columns = [{} for i in range (9)]
+    boxes = [{} for i in range (9)]
+
+    for i in range(9):
+        for j in range(9):
+            num = board[i][j]
+            if num != '.':
+                n = int(num)
+                box_index = (i // 3) * 3  + j // 3;
+
+                rows[i][n] = rows[i].get(n, 0) + 1
+                columns[j][n] = columns[j].get(n, 0) + 1
+                boxes[box_index][n] = boxes[box_index].get(n, 0) + 1
+
+                if rows[i][n] > 1 or columns[j][n] > 1 or boxes[box_index][n] > 1:
+                    return False
+
+    return True
+
+  

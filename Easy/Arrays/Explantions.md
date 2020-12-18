@@ -115,5 +115,32 @@ For Python:
 2. calculate complement for given element
 3. Check if conmplement is in the array and that the compliment is not just the same element
 4. then return a list with the current index and index of compliment
+
+## Valid Sudoku
+
+### Java O(1) time and space
+1. Idea is to create three arrays of HashSet<Character> - length of each array is 9
+    * The three arrays correspond to row, columns, and boxes
+    * Each HashSet represents the entries within each indiviudal box, column, row
+    * The length is 9 because there are 9 rows, 9 columns, 9 boxes
+2. For loop to initialize an empty HashSet in each array
+3. Create a nested for loop from 0 to 9 and then 0 to 9 again
+    * idea is to use nested for loop to iterate from beginning of board to end as it is represented as a 2d array
+4. Get the char at the location in the board and check if the char is a number and not '.'
+5. Use special equation to get boxNumber
+6. See if the char already exists in any of the HashSets ==> if yes, return false
+    * utilize the put() methid for hashsets 
+        * returns false if element already exists in hashset
+    * use rows[i] and columns[j] and boxes[boxNumber] to check in right HashSet within array
+7. Outside nested for, return true ==> none of out if clauses caught to sudoko is valid
+
+
+### Python
+Same logic as java but a few different things
+1. Use list of dicts instead of array of hashset
+    * the key is the actual number on the board, and the value is its occurence ==> means we need to explicetaly check of value is greater than 1 rather than rely on properties of a set
+2. Instead of using the put() method, which returns a boolean, to see if there is a duplicate, we need to explicetaly add the value to our list of dicts
+3. After adding, if the value of any of the numbers is greater than 1, we return false
+
     
 
