@@ -25,3 +25,6 @@ def first_unique_char(s: str) -> int:
 
 def is_anagram(s: str, l: str) -> bool:
     return collections.Counter(s) == collections.Counter(l)
+
+def is_palindrome(s: str) -> bool:
+    pass

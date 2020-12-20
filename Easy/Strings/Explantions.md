@@ -49,3 +49,13 @@
 4. decrement respective char value from second string
 5. iterate through int[] array and if any of the values are not equal to zero, then return false
 6. at end, return true
+
+## Valid Palindrome
+### Java
+1. create two pointers one pointing to beginning and end
+2. first while loop is to use to bring pointers inwards
+3. First nested while loop increments first pointer so that all the non alphanumeric chars are ignored and we go to the first alphanumeric
+4. Second nested loop does the same thing, but for the end pointer
+5. convert the chars at the beginning and end pointers to lowercase and if they are not the same, return false
+6. increment beginning pointer and decrement ending pointer
+7. Outside while loop, return true
