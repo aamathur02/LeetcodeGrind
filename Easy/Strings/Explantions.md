@@ -59,3 +59,36 @@
 5. convert the chars at the beginning and end pointers to lowercase and if they are not the same, return false
 6. increment beginning pointer and decrement ending pointer
 7. Outside while loop, return true
+
+## String to Integer
+
+### Java
+1. if input string length is zero, return 0
+2. Iterate through the string until you find the first non whitespace in the string
+3. Then check if that first non whitespace is a plus or minus sign and record that with a boolean
+4. create another while loop and go through the numbers
+    * if they break overflow, return MIN_VALUE or MAX_VALUE depending on the negative boolean value
+5. Else, add that value to ten times the current return value
+    * need to to s.charAt(counter) - '0' to get its numerical value as opposed to ASCII value
+6. return the negative of postive value depending on the boolean
+
+
+## Implement strstr, Needle In Haystack
+
+### Python
+1. If needle if empty, return 0
+2. Check if needle in haystack
+    * if true, return haystack.find(needle)
+    * else, return -1
+
+## Longest Common Prefix
+
+### Java O(N) space and O(1) Time
+1. If input array length if zero, retun blank string
+2. Set prefix to the first string in the array
+3. Iterate through each element in the array starting at index 1
+4. inside the for loop, check for the index of the prefix in the current string elemement
+    * if it is not 1, shorten the prefix by 1 char
+    * if the prefix if blank, return blank string
+5. Outside for and nested while loop, return prefix
+    * we are essentially shortening the prefix each iteration of the inner while loop so that is becomes small enough that it now common

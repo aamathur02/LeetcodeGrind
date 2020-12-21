@@ -114,4 +114,43 @@ public class Solution {
         return true;
         //asdsa
     }
+
+    public int myAtoi(String s) {
+        int counter = 0;
+        int result = 0;
+
+        if (s.length() == 0) return 0;
+
+        while (counter < s.length() && s.charAt(counter) == ' ') {
+            counter++;
+        }
+        boolean negative = false;
+        if (counter < s.length() && (s.charAt(counter) == '+' || s.charAt(counter) == '-')) {
+            negative = s.charAt(counter++) == '+' ? false : true;
+        }
+
+        while (counter < s.length() && s.charAt(counter) >= '0' && s.charAt(counter) <= '9') {
+            if (result > Integer.MAX_VALUE / 10  || (result == Integer.MAX_VALUE / 10 && s.charAt(counter) - '0' > Integer.MAX_VALUE % 10)) {
+                return negative ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+            }
+           result = result * 10 + (s.charAt(counter) - '0');
+           counter++;
+        }
+
+        return negative ? -result : result;
+    }
+
+    public String longestCommonPrefix(String[] strs) {
+        if (strs.length == 0) return "";
+        String prefix = strs[0];
+        
+        for (int i = 1; i < strs.length; i++) {
+            while (strs[i].indexOf(prefix) !=0) {
+                prefix = prefix.substring(0, prefix.length() - 1);
+                if (prefix.isEmpty()) return "";
+            }
+        }
+
+        return prefix;
+    }
 }
