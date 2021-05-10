@@ -1,7 +1,4 @@
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Blind75 {
     
@@ -60,6 +57,98 @@ public class Blind75 {
         return maxLength;
 
     }
+
+    public String longestPalindrome(String s) {
+        if (s == null || s.equals("")) {
+            return s;
+        }
+
+        String palindrome = "";
+        int length = s.length();
+        int maxLength = 0;
+
+        boolean[][] dpTable = new boolean[length][length];
+
+        for (int j = 0; j < length; j++) {
+
+            for (int i = 0; i <= j; i++) {
+                boolean match = s.charAt(i) == s.charAt(j);
+
+                if (j - i > 2) {
+                    dpTable[i][j] = dpTable[i + 1][j - 1] && match;
+                } else {
+                    dpTable[i][j] = match;
+                }
+
+                if (dpTable[i][j] && (j - i + 1) > maxLength) {
+                    maxLength = j - i + 1;
+                    palindrome = s.substring(i, j + 1);
+                }
+            }
+        }
+
+        return palindrome;
+    }
+
+    public int maxArea(int[] height) {
+        int left = 0, right = height.length - 1, area = 0;
+
+        while (left < right) {
+            area = Math.max(area,Math.min(height[left], height[right]) * (right - left));
+
+            if (height[right] > height[left]) {
+                left++;
+            } else {
+                right--;
+            }
+
+        }
+
+        return area;
+    }
+
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> results = new ArrayList<>();
+        Arrays.sort(nums);
+
+        for (int i = 0; i < nums.length - 2; i++) {
+            if (i != 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+
+            int j = i + 1;
+            int k = nums.length - 1;
+
+
+            while (j < k) {
+                if (j != i + 1 && nums[j] == nums[j - 1]) {
+                    j++;
+                    continue;
+                }
+
+                if (k != nums.length - 1 && nums[k] == nums[k + 1]) {
+                    k--;
+                    continue;
+                }
+
+                int sum = nums[i] + nums[j] + nums[k];
+
+                if (sum == 0) {
+                    results.add(Arrays.asList(nums[i], nums[j], nums[k]));
+                    j++;
+                } else if (sum < 0) {
+                    j++;
+                } else {
+                    k--;
+                }
+            }
+        }
+
+        return results;
+
+
+    }
+
 
 
 }
