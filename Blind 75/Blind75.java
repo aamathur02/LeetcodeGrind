@@ -245,9 +245,97 @@ public class Blind75 {
         }
 
         return dummy.next.next;
-
     }
 
+    public ListNode mergeKLists(ListNode[] lists) {
+        if (lists == null || lists.length == 0) {
+            return null;
+        }
 
+        ListNode head = new ListNode(-1);
+        ListNode dummy = head;
+        PriorityQueue<ListNode> queue = new PriorityQueue<>(lists.length, (o1, o2) -> o1.val - o2.val);
+
+        for (ListNode node : lists) {
+            if (node != null) {
+                queue.add(node);
+            }
+        }
+
+        while (!queue.isEmpty()) {
+            ListNode curr = queue.poll();
+            if (curr.next != null) {
+                queue.add(curr.next);
+            }
+            dummy.next = curr;
+            dummy = dummy.next;
+
+
+        }
+
+        return head.next;
+    }
+
+    public static int search (int[] nums, int target) {
+        int beginning = 0;
+        int end = nums.length - 1;
+
+        while (beginning <= end) {
+            int mid = beginning + ((end - beginning) / 2);
+
+            if (nums[mid] == target) {
+                return mid;
+            }
+
+            if (nums[beginning] == target) {
+                return beginning;
+            }
+
+            if (nums[end] == target) {
+                return end;
+            }
+
+            if (Math.abs(end - beginning) <= 1) {
+                return -1;
+            }
+
+
+            //indicates that the lowest value is in the right
+            if (nums[mid] > nums[end]) {
+                //target value is in right side
+                if (target > nums[mid] || target < nums[end]) {
+                    beginning = mid + 1;
+                } else { //target value in in left side
+                    end = mid - 1;
+                }
+            }
+
+            //indicates that the lowest value is in the left
+            else if (nums[mid] < nums[beginning]) {
+                //target value is in left side
+                if (target > nums[beginning] || target < nums[mid]) {
+                    end = mid - 1;
+                } else { // target value is in right side
+                    beginning = mid + 1;
+                }
+            }
+
+            else if (target < nums[mid]) {
+                end = mid - 1;
+            }
+
+            else if (target > nums[mid]) {
+                beginning = mid + 1;
+            }
+
+        }
+
+        return -1;
+    }
+
+    public static void main(String[] args) {
+        int[] test = new int[]{4,5,6,7,0,1,2};
+        System.out.println(search(test, 1));
+    }
 
 }
