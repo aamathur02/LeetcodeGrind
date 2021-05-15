@@ -333,6 +333,167 @@ public class Blind75 {
         return -1;
     }
 
+    public List<List<Integer>> combinationSumBF(int[] candidates, int target) {
+        Set<Integer> set = new HashSet<>();
+        List<List<Integer>> list = new ArrayList<>();
+
+        for (int i: candidates) {
+            set.add(i);
+        }
+
+        for (int i: candidates) {
+            if (i > target) {
+                continue;
+            }
+
+            int modVal = target % i;
+            if (modVal == 0) {
+                int multiple = target / i;
+                List<Integer> evenList = new ArrayList<>();
+                for (int j = 0; j < multiple; j++) {
+                    evenList.add(i);
+                }
+
+                list.add(evenList);
+            } else {
+                int indexMultiple = i;
+                while (indexMultiple <= target) {
+                    int mod = target % indexMultiple;
+                    if (set.contains(mod)) {
+                        List<Integer> oddList = new ArrayList<>();
+                        oddList.add(mod);
+                        int multiplier = (target - mod) / indexMultiple;
+                        multiplier *= (indexMultiple / i);
+                        for (int k = 0; k < multiplier; k++) {
+                            oddList.add(i);
+                        }
+
+                        list.add(oddList);
+                        continue;
+                    }
+
+                    indexMultiple += indexMultiple;
+                }
+            }
+
+
+        }
+
+        return list;
+    }
+
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> resultList = new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
+        sumHelper(candidates, resultList, list, target, 0);
+        return resultList;
+    }
+
+    private void sumHelper(int[] candidates, List<List<Integer>> resultList, List<Integer> list, int target, int index) {
+        if (target == 0) {
+            resultList.add(new ArrayList<>(list));
+            return;
+        }
+
+        for (int i = index; i < candidates.length; i++) {
+            if (candidates[i] <= target) {
+                list.add(candidates[i]);
+                sumHelper(candidates, resultList, list, target - candidates[i], i);
+                list.remove(list.size() - 1);
+            }
+        }
+    }
+
+    public List<List<String>> groupAnagrams(String[] strs) {
+        HashMap<String, List<String>> map = new HashMap<>();
+
+        for (String s: strs) {
+            char[] c = s.toCharArray();
+            Arrays.sort(c);
+            String value = String.valueOf(c);
+
+            if (!map.containsKey(value)) {
+                map.put(value, new ArrayList<>());
+            }
+
+            map.get(value).add(s);
+        }
+
+        return new ArrayList<>(map.values());
+    }
+
+    public int maxSubArray(int[] nums) {
+        int currentStreak = nums[0];
+        int maxStreak = nums[0];
+        
+        for (int i = 1; i < nums.length; i++) {
+            currentStreak = Math.max(nums[i], currentStreak + nums[i]);
+            
+            maxStreak = currentStreak > maxStreak ? currentStreak : maxStreak;
+        }
+        
+        return maxStreak;
+    }
+
+    public boolean jumpGame(int[] nums) {
+        int lastPos = nums.length - 1;
+        for (int i = nums.length - 1; i >= 0; i--) {
+            if (i + nums[i] >= lastPos) {
+                lastPos = i;
+            }
+        }
+
+        return lastPos == 0;
+    }
+
+    public int[][] mergeIntervals(int[][] intervals) {
+        Arrays.sort(intervals, (a,b) -> Integer.compare(a[0], b[0]));
+        LinkedList<int[]> list = new LinkedList<>();
+
+        for (int[] i : intervals) {
+            if (list.isEmpty() || i[0] > list.getLast()[1]) {
+                list.add(i);
+            } else if (i[0] <= list.getLast()[1]) {
+                list.getLast()[1] = Math.max(list.getLast()[1], i[1]);
+            }
+        }
+
+        return list.toArray(new int[list.size()][]);
+    }
+
+    public int[][] insert(int[][] intervals, int[] newInterval) {
+        if (intervals.length == 0) {
+            int[][] returnArray = new int[1][];
+            returnArray[0] = newInterval;
+            return returnArray;
+        }
+
+        LinkedList<int[]> list = new LinkedList<int[]>();
+        int pointer = 0;
+
+        while (pointer < intervals.length && intervals[pointer][1] < newInterval[0]) {
+            list.add(intervals[pointer]);
+            pointer++;
+        }
+
+        int minValue = (pointer < intervals.length) ? Math.min(newInterval[0], intervals[pointer][0]) : newInterval[0];
+        int maxValue = newInterval[1];
+
+        while (pointer < intervals.length && intervals[pointer][0] <= newInterval[1]) {
+            maxValue = Math.max(intervals[pointer][1], maxValue);
+            pointer++;
+        }
+
+        list.add(new int[]{minValue, maxValue});
+
+        while (pointer < intervals.length && intervals[pointer][0] > newInterval[1]) {
+            list.add(intervals[pointer]);
+            pointer++;
+        }
+
+        return list.toArray(new int[list.size()][]);
+    }
+
     public static void main(String[] args) {
         int[] test = new int[]{4,5,6,7,0,1,2};
         System.out.println(search(test, 1));
